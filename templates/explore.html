@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trip Planner</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+    <!--==================== HEADER ====================-->
+   <header class="header" id="header">
+    <nav class="nav container">
+       <a href="#" class="nav__logo">
+          
+          <!-- <img src="assets/img/logo.png" style="width: 110px; height: 50px; background-color: white; padding: 10px;" alt=""> -->
+           <!-- <img src="assets/img/logo1.png" alt="" style="width: 80px; height: 80px; border-radius: 50%;"> -->
+           <img src="/static/img/logo.svg" style="background-color: white;" height="10px" width="20px" class="logo">
+           The LandMark <br>
+          Tour
+       </a>
+       <div class="nav__menu" id="nav-menu">
+          <ul class="nav__list">
+             <li class="nav__item">
+                <a href="/" class="nav__link ">Home</a>
+             </li>
+
+             <li class="nav__item">
+                <a href="/weather" class="nav__link">Weather</a>
+             </li>
+
+             <li class="nav__item">
+                <a href="/popular" class="nav__link">Popular</a>
+             </li>
+
+             <li class="nav__item">
+                <a href="/explore" class="nav__link">Explore</a>
+             </li>
+
+          </ul>
+
+          <!-- Close button -->
+          <div class="nav__close" id="nav-close">
+             <i class="ri-close-line"></i>
+          </div>
+       </div>
+
+       <!-- Toggle button -->
+       <div class="nav__toggle" id="nav-toggle">
+          <i class="ri-menu-line"></i>
+       </div>
+
+    </nav>
+ </header>
+
+    <div class="container" style="padding-top: 10%;">
+        <h1>🌍 EXPLORE</h1>
+        <p>PLAN YOUR TRIP NOW !!!</p>
+        
+        <form action="/plan_trip" method="POST">
+            <div class="form-group">
+                <label for="current_location">Current Location:</label>
+                <input type="text" id="current_location" name="current_location" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="destination">Destination:</label>
+                <input type="text" id="destination" name="destination" required>
+            </div>
+            
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="start_date">Start Date:</label>
+                    <input type="date" id="start_date" name="start_date" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="end_date">End Date:</label>
+                    <input type="date" id="end_date" name="end_date" required>
+                </div>
+            </div>
+            
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="budget">Total Budget (Rs):</label>
+                    <input type="number" id="budget" name="budget" min="0" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="travelers">Number of Travelers:</label>
+                    <input type="number" id="travelers" name="travelers" min="1" value="1" required>
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label for="interests">Interests (optional):</label>
+                <input type="text" id="interests" name="interests" placeholder="e.g., beaches, hiking, museums">
+            </div>
+            
+            <button type="submit" class="btn">Plan My Trip ✈️</button>
+        </form>
+    </div>
+
+
+    <footer class="footer">
+        <div class="footer__container container grid">
+           <div class="footer__content grid">
+              <div>
+                 <a href="#" class="footer__logo">Travel</a>
+                 <p class="footer__description">
+                    Travel with us and explore <br>
+                    the world without limits.
+                 </p>
+              </div>
+              <div class="footer__data grid">
+                 <div>
+                    <h3 class="footer__title">About</h3>
+                    <ul class="footer__links">
+  
+                       <li>
+                          <a href="#" class="footer__link">About Us</a>
+                       </li>
+  
+                       <li>
+                          <a href="#" class="footer__link">Features</a>
+                       </li>
+  
+                       <li>
+                          <a href="#" class="footer__link">News & Blog</a>
+                       </li>
+  
+                    </ul>
+                 </div>
+  
+                 <div>
+                    <h3 class="footer__title">Company</h3>
+                    <ul class="footer__links">
+  
+                       <li>
+                          <a href="#" class="footer__link">FAQs</a>
+                       </li>
+  
+                       <li>
+                          <a href="#" class="footer__link">History</a>
+                       </li>
+  
+                       <li>
+                          <a href="#" class="footer__link">Testimonials</a>
+                       </li>
+  
+                    </ul>
+                 </div>
+  
+                 <div>
+                    <h3 class="footer__title">Contact</h3>
+                    <ul class="footer__links">
+  
+                       <li>
+                          <a href="#" class="footer__link">Call Center</a>
+                       </li>
+  
+                       <li>
+                          <a href="#" class="footer__link">Support Center</a>
+                       </li>
+  
+                       <li>
+                          <a href="#" class="footer__link">Contact Us</a>
+                       </li>
+  
+                    </ul>
+                 </div>
+  
+                 <div>
+                    <h3 class="footer__title">Support</h3>
+                    <ul class="footer__links">
+  
+                       <li>
+                          <a href="#" class="footer__link">Privacy Policy</a>
+                       </li>
+  
+                       <li>
+                          <a href="#" class="footer__link">Terms & Services</a>
+                       </li>
+  
+                       <li>
+                          <a href="#" class="footer__link">Payments</a>
+                       </li>
+  
+                    </ul>
+                 </div>
+  
+              </div>
+           </div>
+           <div class="footer__group">
+              <div class="footer__social">
+                 <a href="https://www.facebook.com/" target="_blank" class="footer__social-link">
+                    <i class="ri-facebook-line"></i>
+                 </a>
+                 <a href="https://www.instagram.com/" target="_blank" class="footer__social-link">
+                    <i class="ri-instagram-line"></i>
+                 </a>
+                 <a href="https://twitter.com/" target="_blank" class="footer__social-link">
+                    <i class="ri-twitter-line"></i>
+                 </a>
+                 <a href="https://www.youtube.com/" target="_blank" class="footer__social-link">
+                    <i class="ri-youtube-line"></i>
+                 </a>
+              </div>
+              <span class="footer__copy">
+                 &#169; Copyright Bedimcode. All rights reserved
+              </span>
+           </div>
+        </div>
+     </footer>
+</body>
+</html>

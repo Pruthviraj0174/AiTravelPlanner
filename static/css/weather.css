@@ -1,0 +1,688 @@
+/*=============== GOOGLE FONTS ===============*/
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600&family=Poppins:wght@400;500&display=swap");
+
+/*=============== VARIABLES CSS ===============*/
+:root {
+  --header-height: 3.5rem;
+
+  /*========== Colors ==========*/
+  /*Color mode HSL(hue, saturation, lightness)*/
+  --title-color: hsl(0, 0%, 95%);
+  --text-color: hsl(0, 0%, 70%);
+  --text-color-light: hsl(0, 0%, 60%);
+  --body-color: hsl(0, 0%, 0%);
+  --container-color: hsl(0, 0%, 8%);
+
+  /*========== Font and typography ==========*/
+  /*.5rem = 8px | 1rem = 16px ...*/
+  --body-font: "Poppins", sans-serif;
+  --second-font: "Montserrat", sans-serif;
+  --biggest-font-size: 2.75rem;
+  --h1-font-size: 1.5rem;
+  --h2-font-size: 1.25rem;
+  --h3-font-size: 1rem;
+  --normal-font-size: .938rem;
+  --small-font-size: .813rem;
+  --smaller-font-size: .75rem;
+
+  /*========== Font weight ==========*/
+  --font-regular: 400;
+  --font-medium: 500;
+  --font-semi-bold: 600;
+
+  /*========== z index ==========*/
+  --z-tooltip: 10;
+  --z-fixed: 100;
+}
+
+
+/*========== Responsive typography ==========*/
+@media screen and (min-width: 1152px) {
+  :root {
+    --biggest-font-size: 5.5rem;
+    --h1-font-size: 2.5rem;
+    --h2-font-size: 1.5rem;
+    --h3-font-size: 1.25rem;
+    --normal-font-size: 1rem;
+    --small-font-size: .875rem;
+    --smaller-font-size: .813rem;
+  }
+}
+
+/*=============== BASE ===============*/
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body,
+button,
+input {
+  font-family: var(--body-font);
+  font-size: var(--normal-font-size);
+  color: var(--text-color);
+}
+
+body {
+  background-color: var(--body-color);
+}
+
+button,
+input {
+  outline: none;
+  border: none;
+}
+
+h1, h2, h3, h4 {
+  color: var(--title-color);
+  font-family: var(--second-font);
+  font-weight: var(--font-semi-bold);
+}
+
+ul {
+  list-style: none;
+}
+
+a {
+  text-decoration: none;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+/*=============== REUSABLE CSS CLASSES ===============*/
+.container,.container1 {
+  max-width: 1120px;
+  margin-inline: 1.5rem;
+}
+
+.grid {
+  display: grid;
+  gap: 1.5rem;
+}
+
+.section {
+  padding-block: 5rem 1rem;
+}
+
+.section__title {
+  text-align: center;
+  font-size: var(--h1-font-size);
+  margin-bottom: 1.5rem;
+}
+
+.main {
+  overflow: hidden; /* For animation ScrollReveal */
+}
+
+/*=============== HEADER & NAV ===============*/
+
+
+.header{
+  position: fixed;
+  width: 100%;
+  background-color: transparent;
+  top:0;
+  left: 0;
+  z-index: var(--z-fixed);
+}
+
+.nav{
+  height: var(--header-height);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.nav__logo{
+  color: var(--title-color);
+  font-family: var(--second-font);
+  font-weight: var(--font-semi-bold);
+  display: flex;
+  gap: 7px;
+  /* border-radius: 2px; */
+}
+
+.nav__toggle,
+.nav__close{
+  display: flex;
+  font-size: 1.25rem;
+  color: var(--title-color);
+  cursor: pointer;
+
+}
+
+
+
+
+/* Navigation for mobile devices */
+@media screen and (max-width:1023px){
+  .nav__menu{
+    position: fixed;
+    top: -100%;
+    left:0;
+    background-color: hsla(0,0%,0%,.3);
+    width: 100%;
+    padding-block: 4rem;
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    transition:top .4s;
+  }
+}
+
+.nav__list{
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  row-gap: 2.5rem;
+}
+
+.nav__link{
+  color: var(--title-color);
+  font-family:var(--second-font);
+  font-weight: var(--font-medium);
+}
+
+.nav__close{
+  position:absolute;
+  top: 1rem;
+  right: 1.5rem;
+
+}
+/* Show menu */
+.show-menu{
+  top: 0;
+
+}
+
+/* Add blur to header */
+.blur-header::after{
+  content: '';
+  position: absolute;
+  width: 1000%;
+  height: 100%;
+  background-color: hsla(0, 0%, 0%, .3);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  top: 0;
+  left: 0;
+  z-index: -1;
+
+}
+
+/* Active link */
+
+
+/*=============== HOME ===============*/
+.home{
+  position: relative;
+
+}
+
+.home__bg{
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 750px;
+  object-fit: cover;
+  object-position: center;
+
+}
+.home__shadow{
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 800px;
+  background: linear-gradient(180deg,hsla(0,0%,0%,0)58%,
+  hsla(0,0%,0%)78%);
+}
+.home__container{
+  position: relative;
+  padding-top: 3rem;
+  row-gap: 3rem;
+
+}
+
+.home__data{
+  text-align: center;
+
+}
+
+.home__subtitle{
+  font-size: var(--h3-font-size);
+  margin-bottom: .5rem;
+  
+}
+
+
+.home__title{
+  font-size: var(--biggest-font-size);
+  margin-bottom: 1rem;
+
+}
+.home__description{
+  margin-bottom: 2rem;
+  color: var(--title-color);
+
+}
+
+
+
+
+/*=============== POPULAR ===============*/
+
+
+
+
+/*=============== FOOTER ===============*/
+
+
+/*=============== SCROLL BAR ===============*/
+::-webkit-scrollbar{
+  width: 0.6rem;
+  border-radius: .5rem;
+  background-color: hsl(0, 0%, 10%);
+  
+}
+
+::-webkit-scrollbar-thumb{
+  border-radius: .5rem;
+  background-color: hsl(0, 0%, 20%);
+}
+
+::-webkit-scrollbar-thumb:hover{
+  background-color: hsl(0, 0%, 30%);
+}
+
+
+/*=============== SCROLL UP ===============*/
+.scrollup{
+  position: fixed;
+  right: 1rem;
+  bottom: -50%;
+  background-color: hsla(0, 0%, 100%, .1);
+  padding: 6px;
+  display: inline-flex;
+  color: var(--title-color);
+  font-size: 1.25rem;
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  z-index: var(--z-tooltip);
+  transition: bottom .4s,transform .4s;
+}
+
+.scrollup:hover{
+  transform: translateY(-.25rem);
+}
+/* Show Scroll Up */
+.show-scroll{
+  bottom: 3rem;
+}
+
+
+/* Show Scroll Up */
+
+
+/*=============== BREAKPOINTS ===============*/
+/* For small devices */
+@media screen and (max-width: 340px)
+{
+  .container{
+    margin-inline: 1rem;
+
+  }
+  .footer__data{
+    grid-template-columns: max-content;
+  }
+}
+
+/* For medium devices */
+@media screen and (min-width:576px) {
+  
+  .home__container,.about__container{
+    grid-template-columns: 380px;
+    justify-content: center;
+  }
+  .footer__data{
+    grid-template-columns: repeat(3,max-content);
+  }
+  
+}
+
+@media screen and (min-width:768px){
+  .home__cards{
+    grid-template-columns: repeat(2,240px);
+  }
+
+  .about__container{
+    grid-template-columns: repeat(2,350px);
+    align-items: center;
+  }
+
+  .about__data,.about__data .section__title{
+    text-align: initial;
+
+  }
+
+  .popular__container{
+    grid-template-columns: repeat(2,240px);
+  }
+
+  .footer__content{
+    grid-template-columns: repeat(2,max-content);
+    justify-content: space-between;
+  }
+
+}
+
+
+.footer__group{
+  flex-direction: row;
+  justify-content: space-between;
+}
+.footer__copy{
+  order: -1;
+}
+
+/* For large devices */
+
+@media screen and (min-width:1023px) {
+  .nav__close,.nav__toggle{
+    display: none;
+  }
+  .nav__list{
+    flex-direction: row;
+    column-gap: 4rem;
+
+  }
+  .popular__container{
+    grid-template-columns: repeat(3,240px);
+
+  }
+  .footer__data{
+    grid-template-columns: repeat(4,max-content);
+    column-gap: 4.5rem;
+  }
+}
+
+@media screen and (min-width:1152px){
+  .container{
+    margin-inline: auto;
+  }
+  .section{
+    padding-block: 7rem 2rem;
+
+  }
+  .nav{
+    height: calc(var(--header-height) + 1.5rem);
+
+  }
+  .blur-header::after{
+    backdrop-filter: blur(25px);
+    -webkit-backdrop-filter: blur(25px);
+  }
+
+  .home__container{
+    grid-template-columns: initial;
+    justify-content: initial;
+    row-gap: 4rem;
+    padding-top: 6.5 rem;
+  }
+
+  .home__shadow{
+    height: 980px;
+
+  
+  }
+  .home__data{
+    text-align: initial;
+    width: 480px;
+
+  }
+  .home__subtitle{
+    font-size: var(--h2-font-size);
+  }
+  .home__description{
+    margin-bottom: 2.5rem;
+  }
+  .home__cards{
+    grid-template-columns: repeat(4,260px);
+  }
+  .home__card-title{
+    left: 1.5rem;
+    bottom: 1.5rem;
+  }
+  .button{
+    column-gap: 1.5rem;
+  }
+
+  .about__container{
+    grid-template-columns: 400px 460px;
+    column-gap: 8.5rem;
+    padding-block: 1rem;
+  }
+  .about__description{
+    margin-bottom: 3rem;
+  }
+  .about__img{
+    width: 460px;
+  }
+  .popular__container{
+    grid-template-columns: repeat(300px);
+    column-gap: 3rem;
+    padding-top: 4rem;
+  }
+  .popular__title{
+    font-size: var(--h2-font-size);
+
+  }
+  .popular__location{
+    font-size: var(--normal-font-size);
+  }
+  .footer{
+    padding-block: 5rem 3rem;
+    
+
+  }
+  .footer__title{
+    margin-bottom: 1.5rem;
+  }
+  .footer__group{
+    margin-top: 7rem;
+    
+  }
+  .footer__social{
+    column-gap: 2rem;
+  }
+  .footer__social-link{
+    font-size: 1.5rem;
+  }
+  .scrollup{
+    right: 3rem;
+  }
+}
+
+.form-select {
+  display: block;
+  width: 100%;
+  /* padding: 5rem 5rem; */
+  padding: 5px;
+  font-size: 1rem;
+  line-height: 4rem;
+  color: #495057;
+  background-color: #fff;
+  border: 2px solid black;
+  border-radius: 0.8rem;
+  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+  margin-top: 20px;
+}
+
+.time-input{
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+.time-inputs input {
+  width: 100%; /* Ensure inputs take full width of container */
+  padding: 5px; /* Add padding for better spacing */
+  font-size: 1rem; /* Set font size */
+  border: 2px solid black; /* Border style */
+  border-radius: 0.8rem; /* Rounded corners */
+  transition: border-color 0.15s ease-in-out; /* Transition effect */
+}
+
+.home__subtitle{
+    font-size:var(--h1-font-size)
+}
+
+
+.home__container{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+#container1 {
+    height: 100vh;
+    width: 100%;
+    position: relative;
+    background-image: url('https://source.unsplash.com/1600x900/?landscape');
+    display: flex;
+}
+
+#container1 #location {
+    height: 60px;
+    width: 100%;
+    position: absolute;
+    left: 0%;
+    top: 11%;
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+}
+
+#container1 input {
+    height: 50px;
+    width: 300px;
+    margin: 0px 20px;
+    padding: 0 20px;
+    left: 0%;
+    border: none;
+    outline: none;
+    background: white;
+    font-size: 20px;
+    color: black;
+}
+
+#container1 input::placeholder {
+    color: #000000d0;
+}
+
+#container1 input[type="submit"] {
+    cursor: pointer;
+    width: 150px;
+    background: #000000d0;
+    color: white;
+    font-weight: 700;
+    font-size: 22px;
+}
+
+#tempIcon {
+    height: 150px;
+    width: 150px;
+    position: absolute;
+    top: 35%;
+    left: 60%;
+    
+}
+
+#weatherCountry {
+    font-size: 40px;
+    position: absolute;
+    top: 37%;
+    margin-left: auto;
+    margin-right: 20%;
+}
+
+#temperature {
+    font-size: 45px;
+    position: absolute;
+    top: 45%;
+    left: 37%;
+}
+
+#temperature b {
+    color: red;
+}
+
+#weatherDescription {
+    font-size: 20px;
+    text-transform: capitalize;
+    position: absolute;
+    bottom: 38%;
+    left: 60%;
+}
+
+#container1 ul {
+    position: absolute;
+    bottom: 17%;
+    left: auto;
+    right: auto;
+    margin-right: 20%;
+}
+
+#container1 ul li {
+    font-size: 20px;
+    margin: 20px 0;
+    list-style-type: none;
+    margin-right: 5rem;
+}
+
+.features
+{
+    justify-content: center;
+}
+
+.flex
+{
+  background: #988a8ad0;
+  color: white;
+  padding: 2em;
+  border-radius: 30px;
+  width: 100%;
+  max-width: 700px;
+  height: 30rem;
+  margin: 1em;
+  margin-top: 14rem;
+  margin-left: auto;
+  margin-right: auto;
+  display: flex;
+  justify-content: center;
+}
+
+.h1
+{
+    margin-left: 28rem;
+    margin-top: 25rem;
+    font-size: 1.5rem;
+    font-family: "myFirstFont"; 
+}
+
+@font-face {
+    font-family: "myFirstFont"; 
+    src: url("fonts/ticking-timebomb-bb.regular.ttf"); 
+}
+
+@media and screen(max-width:1496px)
+{
+    
+}

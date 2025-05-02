@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trip Itinerary</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <!-- Leaflet CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+        integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+        crossorigin=""/>
+    <!-- Leaflet Routing Machine CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet-routing-machine@3.2.12/dist/leaflet-routing-machine.css" />
+</head>
+<body>
+    <div class="container">
+        {% if error %}
+            <div class="error">
+                <h2>Error</h2>
+                <p>{{ error }}</p>
+                <a href="/" class="btn">Try Again</a>
+            </div>
+        {% else %}
+            <h1>✈️ Your Trip Itinerary</h1>
+            <div class="trip-info">
+                <p><strong>From:</strong> {{ current_location }}</p>
+                <p><strong>To:</strong> {{ destination }}</p>
+                <p><strong>Dates:</strong> {{ start_date }} to {{ end_date }}</p>
+                <p><strong>Budget:</strong> Rs{{ budget }} for {{ travelers }} traveler(s)</p>
+            </div>
+            
+            <div class="map-container">
+                <h2>Route Map</h2>
+                <div id="map"></div>
+            </div>
+            
+            <div class="itinerary">
+                <h2>Your Personalized Itinerary</h2>
+                <div class="itinerary-content">
+                    {{ itinerary|safe }}
+                </div>
+            </div>
+            
+            <a href="/" class="btn">Plan Another Trip</a>
+        {% endif %}
+    </div>
+
+    <!-- Leaflet JS -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+        integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+        crossorigin=""></script>
+    <!-- Leaflet Routing Machine JS -->
+    <script src="https://unpkg.com/leaflet-routing-machine@3.2.12/dist/leaflet-routing-machine.js"></script>
+    
+    <script>
+        // Initialize the map
+        const map = L.map('map').setView([20, 0], 2);
+        
+        // Add OpenStreetMap tiles
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        }).addTo(map);
+
+        // Geocode function (simple implementation)
+        async function geocodeLocation(location) {
+            try {
+                const response = await fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(location)}`);
+                const data = await response.json();
+                if (data.length > 0) {
+                    return {
+                        lat: parseFloat(data[0].lat),
+                        lon: parseFloat(data[0].lon),
+                        name: data[0].display_name
+                    };
+                }
+                return null;
+            } catch (error) {
+                console.error('Geocoding error:', error);
+                return null;
+            }
+        }
+
+        // Process route when page loads
+        document.addEventListener('DOMContentLoaded', async function() {
+            const startLocation = "{{ current_location }}";
+            const endLocation = "{{ destination }}";
+            
+            // Geocode both locations
+            const start = await geocodeLocation(startLocation);
+            const end = await geocodeLocation(endLocation);
+            
+            if (start && end) {
+                // Set map view to show both locations
+                const bounds = L.latLngBounds(
+                    [start.lat, start.lon],
+                    [end.lat, end.lon]
+                );
+                map.fitBounds(bounds, { padding: [50, 50] });
+                
+                // Add markers
+                L.marker([start.lat, start.lon]).addTo(map)
+                    .bindPopup(`<b>Start:</b> ${start.name}`)
+                    .openPopup();
+                
+                L.marker([end.lat, end.lon]).addTo(map)
+                    .bindPopup(`<b>Destination:</b> ${end.name}`);
+                
+                // Add routing
+                L.Routing.control({
+                    waypoints: [
+                        L.latLng(start.lat, start.lon),
+                        L.latLng(end.lat, end.lon)
+                    ],
+                    routeWhileDragging: true,
+                    show: false, // Hide the instructions panel
+                    addWaypoints: false,
+                    draggableWaypoints: false
+                }).addTo(map);
+            } else {
+                console.error('Could not geocode one or both locations');
+            }
+        });
+    </script>
+</body>
+</html>
